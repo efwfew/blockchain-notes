@@ -1,0 +1,91 @@
+bootstrap 이용을 위해
+
+login.ejs 에 div 탭으로 묶어줌
+
+form 탭에는 get 이나 post method 등 여러가지가 있는데,
+
+post방식으로 넘기는건 url에 변형이 없음
+/fsdfds?=fjeiwfjisdf 이런식이어야 하는데, url이
+
+get 요청과 post 요청.
+server 와 client.
+개념을 이해하자.
+
+use를 써서 get과 post를 logic을 짜서 했대.
+method를 쓰면 get인지 post인지 변수로 담기겠쬬?
+
+만약에 get 요청이다 하면
+if (method == "get") 이면 login 페이지를 띄워줘야 할것이고
+아니면 뭐
+
+말좀해라 언제 말할거야
+get이 아닌 다른 요청이면
+값을 받아와야 한다. 값을 받을때는, loing.ejs 에 input name이 각각 있는데,
+post 방식으로 clinent에서 server로 넘어오는데, 
+
+express는 일반적으로 post로 받아오는 요청을 모두 undefined 처리가 되는데
+이를 받아와서 파싱할수 있는 모듈이 있음.
+express 이전 버전에서는 body parser 라는 모듈이 있었는데,
+요새는 이게 내장되어있음.
+그래서 입력
+
+eosjs
+node-fetch
+설치
+
+jquery 라는 script를 통해 ~
+
+getAccount라는 함수를 통해 펑션이 실행이 되면 요청한 값을 파싱할 수 있는 기능으로 만들거래
+
+  <!-- Transfer Modal -->
+        <div class="modal fade" id="transferModal" tabindex="-1" role="dialog" aria-labelledby="transferModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">전송하기</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" id="transferForm">
+                            <div class="form-group">
+                                <label>Contract</label>
+                                <input type="text" class="form-control" name="contract" value="eosio.token">
+                            </div>
+                            <div class="form-group">
+                                <label>받을 계정명</label>
+                                <input type="text" class="form-control" name="to_account" value="junglehexeos">
+                            </div>
+                            <div class="form-group">
+                                <label>보낼 수량</label>
+                                <input type="number" class="form-control" name="amount" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label>심볼</label>
+                                <input type="text" class="form-control" name="symbol" value="EOS">
+                            </div>
+                            <div class="form-group">
+                                <label>메모</label>
+                                <input type="text" class="form-control" name="memo" value="send token">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="transferButton" class="btn btn-primary">전송하기</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+구현 못한 기능 = 토큰발행, 토큰 잔액 확인 등
+
+get . currency. balance = 토큰잔액
+
+

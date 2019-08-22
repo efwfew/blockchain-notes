@@ -1,0 +1,93 @@
+geth => 노드구축 => 블록체인 네트워크 구축
+
+외부 프로그램으로 연동
+(metamask, remix)
+
+
+
+개발환경구축
+1. git
+2. 코드편집툴(eclipse, vscode..)
+3. 터미널 셋팅
++@
+4. 개발에 관련된 라이브러리, 툴..,.
+
+오전순서****
+*pk1 디렉터리 생성
+*계정하나 생성
+*genesis.json파일 생성- (alloc, coinbase 수정) - indent 정리 
+*genesis 블록 생성
+*노드실행-
+geth --networkid 1234 --datadir $PWD --rpc --rpcport 8545 --rpcaddr "0.0.0.0" --rpccorsdomain "*" --rpcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --port 30303 console
+*메타마스크 실행 - 이더리움 노드접속/네트워크 선택- 로컬호스트 8545선택
+*노드에 있는 계정 import시키기
+ 
+database*(혼합사용) - 넣고 빼고 수정 삭제(CRUD)
+mysql(mariadb)
+oracle
+redis
+mongodb
+
+블록체인 인프라 작업영역
+노드를 셋팅하고 -> 컨트랙트 배포
+
+스마트 컨트랙트 개발
+solidity
+
+dapp개발 
+클라이언트(front-end) - lifecycle(앱이 실행 ->종료 될때까지의 상태값)
+웹 : html, css, javascript***(react, vue, angular)
+안드로이드: java , kotlin*
+IOS : swift, object-c
+
+서버(back-end) - 요청시 전달한 데이터 분해, 응답(request, response)
+java - spring- 전자정보프레임워크
+python - django**
+javascript - node.js**
+c# - .net core
+
+- spring표준화, 개발을 계속하다보면 편함, 처음 배울떄 어려움(AOP)
+- node.js 처음 배울떈 편함, 하다보면 어려움(javascript 비동기)
+
+java 많이 사용 , 기관 ,정부과제
+
+가져다가 사용하는개념
+	프레임워크 : 프로젝트 구조가 갖춰져 있음
+	라이브러리 : 코드단위, 하나의 기능 
+
+
+블록체인 단점:
+1. 속도
+2. 데이터 조회 시 대량 리스트 조회가 불가능
+	->DB랑 같이사용
+
+프로그래밍 기본 개념
+	변수 선언(데이터 구조)
+	함수
+	조건문
+	반복문
+
+
+github.com =>소스 형상관리툴 / 회원가입
+git을 hub로 공유/
+-commit: save(로컬저장)
+-push: 로컬에 저장된 commit을 github 업로드
+-pull: 다운로드
+
+>> : 파이프라인 
+ls : 디렉터리 확인 // 흰색: 파일 파란색: 디렉터리 초록: 실행파일
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+git remote add origin https://github.com/pilsa0327/test.git
+
+블록체인project(clone - 전체를 다 한다기보다는 중요한 부분 위주로)
+-지갑 -리믹스 카피
+
+
+
+cf)
+쉘코드(배치코드) - 명령어들로 이루어진 파일, 자동화
+	윈도우에서는 sh(shell)의 개념이 없음
+
+
+

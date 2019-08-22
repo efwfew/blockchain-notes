@@ -1,0 +1,18 @@
+{
+  "name": "eos-wallet",
+  "version": "1.0.0",
+  "description": "eos-wallet and dApp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peterkim",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.2",
+    "eosjs": "^20.0.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
+    "supervisor": "^0.12.0"
+  }
+}

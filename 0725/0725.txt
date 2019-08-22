@@ -1,0 +1,197 @@
+defer 함수가 다 종료가 되었을 때 연결을 끊는 거
+
+종료하는 코드. 마지막 줄 까지 실행이 되고 나서
+defer db.close
+닫아라.
+
+이더리움 등은 누구나 참가할 수 있는 블록체인
+
+패브릭은 누구나 참가할 수 없는 블록체인
+기존의 블록체인을 좀 더 최적화 시킨 것.
+
+기존에 블록체인에서 노드의 역할은
+
+블록생성
+트랜잭션 생성
+트랜잭션 전파
+블록 전파
+스마트 컨트랙트 생성 등 많은 역할
+
+노드 수도 많고 불안정함.
+
+패브릭에서는 노드의 여러가지 있던 기능을
+
+기능별로 분리해 갈라 놓은 후
+원하는 대로 여러 기능들을 조합해서 사용.
+
+패브릭은 아무때나 막쓰는 블록체인 채널이 아님
+
+기관(조직) 과 채널 이라는 개념이 있음
+
+ETH도 BTC도 기본 체인이 있는데,
+
+fabric은 각각의 채널별로 chain이 있고 이말은 각 채널의 chain을 state로 관리한다는 말임.
+
+fabric에서 가장 작은 단위는 peer. (node와 비슷한 개념)
+
+peer는 기본적으로 block, transaction, state만 관리를 함.
+
+endersing
+commiting 등의 기능은 따로.
+
+컨소시엄에 인증된 각 회사별로 peer를 이용할 수 있음.
+
+/* 패브릭 설명 패스 */
+
+sample
+
+first-network: 네트워크 구축
+fabcar: 체인코드 개발
+chaincode-docker-devmod: dApp 개발
+
+3개 directory를 다룰것
+
+체인코드는 새로 만들겠지만
+네트워크 구축이나 그런것들은 샘플코드를 이용해서 구축한다.
+
+/bin/
+configtxgen: tx생성
+go 로 만들어진 파일들. peer를 만들든 tx를 만들든
+bin folder 내의 파일들을 이용
+
+first-network
+정상적으로 이미지가 pull이 되면
+docker images 하면 이미지들이 보인다 (git에서)
+-> fabric의 환경 구축이 끝난것.
+
+docker를 사용하는 이유가 간단히 이미지들을 다운받아서 환경구축을 할 수 있기 때문.
+다운을 안받고도 할 수는 있는데, 환경 설정하는데만 일주일이 넘게 걸림
+
+체인코드가 내부적으로 java로도 작동 -> javaenv의 존재 이유
+
+golang java js를 이용해서 체인코드를 작성할 수 있는데
+golang을 쓰는 이유는 가장 빠르게 할 수 있기 때문,
+
+docker images 하면 나오는 폴더별로 이미지들이 정리되어 있는것들이
+기존 노드의 기능들을 분리해서 이용할 수 있기 때문
+
+패브릭은 내부적으로 채널을 이용해서 동작이 된다 라고 일단 이해해 놓자
+
+내부적으로 체인코드에 의해서 작동을 하는데,
+각각의 기능별로 각각의 기능을 제어하는 체인코드들이 또 단독적으로 존재.
+
+시스템에서 이미 사용중인 체인코드들이 있음.
+패브릭은 체인코드들에 의해서 동작이 되는 프로그램
+
+./byfn.sh 입력
+
+docker ps 했을때 나오는 names 에 주목
+peerx.orgx.example.com -> 기관과 피어, 주소명을 이렇게 설정
+
+인증서: 각 기관의 CA 디렉토리
+channel-artifacts 폴더
+channel.tx -> 채널 단위로 체인을 생성을 하는데, 채널 단위의 제네시스 블록
+각각의 피어들을 채널에 참가시킴. 채널tx를 가지고 블록을 만들어서 실행을 시킴
+
+genesis.block -> orderer에서 생성
+org1MSPan~ 등 4개의 파일이 생성됨
+
+byfn.sh를 보면 582줄
+up을 붙이면 upcode로 뭘 한대
+up과 down?
+
+networkup ?이라는 함수만 찾으면 된다?
+generatecerts()
+crypto bin/cryptogen -> 이용해서 생성을 하는데 뭘 이용을 할거냐
+--config=./crypto-config.yaml
+
+위 파일을 열어보면, 뭐가 존내 나오는데,
+채널 아티팩트 전에 인증서들을 봤는데, crypto config를 생성해줌
+oderer ~~ 와 peer ~~를 생성
+
+그 다음이 replaceprivatekey 일단 이부분은 안봐도 된대
+파일만 카피해서 뭘 해주는건데 큰 의미가 있는 부분은 아니래
+그 다음이 generatechannelartifacts()
+-> 아까 그 4개 생성해준거
+
+configtxgen 를 실행하는데 조건이 걸려있음. if문으로 consensus_type에 따라 생성을 해라
+configtxgen에서 쭉 우측으로 가면 실행파일이 나와 있음 genesis.block 파일 이용.
+
+각 파일에서 코드를 뜯어봐서 어떤걸 무슨 조건으로 실행하냐만 보면 된대
+
+이렇게 해서 인증서가 여기까지 생성이 된거
+
+docker exec cli scripts/scripts.sh
+cli 서버에 접속해서 저걸 실행하는건데, 윈도우 에러로 안된거래
+
+
+flow 어쩌구를 수정을 해서 실행을 하면 된다.
+기존에 있는 샘플코드는 어떤걸 써 왔는지 익히고 나서 계속 쳐보면 된대
+
+스크립트 파일을 실행을 하는데, start 그림 밑에
+변수값들을 입력한느 항들이 있고,
+go로 할거냐 node로 할거냐 java로 할거냐
+선ㄴ택을 하고
+channel name을 안넣으면 기본적으로 mychannel로 입력하도록 정의가 되어 있고,
+
+channel_name 보면 mychannel로 고정이 되어 있다고 검색
+
+와 신난다 미쳐버리곘다~ ㅎㅎ
+
+갑자기 . scripts/utils.sh 를 실행을 한대
+
+실행할 떄 환경 변수를 설렁하는 파일이다
+.하고 sc 사이에 왜 띄워놨냐면 앞으로 쓸거고 아직 여기서 쓸건 아니래.
+파일을 분리해놓고 나중에 불러와서 쓸거다 하는걸 의미. 호출이 아니라
+라이브러리를 가지고 오려고 준비해놓은것
+주석도 import ~
+
+어떤 조직에 어떤 채널을 설정을 할거냐 잘 봐라.
+
+createchannel()
+script.sh 검색을 해보면
+
+cli에 들어가서 하는거래
+그냥 여기다가 치는게 아니라
+
+docker exec 0it cli /bin/bash 가서 하는건데
+git bash는 exec를 못읽어서
+powershell 가서
+docker exec -it cli /bin/bash 치고 script.sh 하면
+지가 알아서 network를 연결하고 뭐 하고 체인크도 배포하고 체인코드 수정하고
+근데 윈도우에선 안된다?
+
+네트워크 구축에서는 필요파일 생성
+	1. 인증서 생성
+	2. .tx들. .blcok들 생성
+3. 노드 실행하고
+4. 노드 접속하고
+	5. 채널 생성
+	6. 채널 참가
+	7. 앵커피어 업데이트
+	8. 체인코드 설치
+	9. 체인코드 인스턴스
+
+와 신ㄴ단다 시발 잌ㅋㄹ커카ㅣㄹ이키ㅏ ㄹ아너ㅏㅣㅋ
+
+이 프로세스가 상당이 중요하다.
+윈도우에서는 수동으로 해야되고
+맥이나 우분투? 는 자동으로 된대
+
+윈도우 좆까래
+
+
+node.js
+
+folder 생성
+powershell
+
+npm install
+]cd XXX
+npm i
+
+express folder name
+
+npm start
+
+끝?

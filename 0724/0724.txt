@@ -1,0 +1,433 @@
+챗봇
+
+1. 형태소 분석
+2. 문장생성
+
+구글 - bert 형태소 분석 알고리즘. 사람보다 뛰어남.
+
+한국어가 제일 어려워 가장 늦게 나오고
+data를 많이 잡는건 일어와 노어
+telegram이 챗봇을 만들기 가장 쉬움.
+
+1. 카카오톡
+2. 텔레그램
+3. 슬랙
+
+챗봇 운영 이유 = 장애생겼을때 알림
+
+개발 블로그
+1. 구글
+0. 깃블로그
+2. 티스토리
+10. 네이버
+
+golang - 컴파일, 병렬처리(threading)
+javascript - 비동기
+
+devops - development operation - pipeline을 만드는 역할
+
+docker는 두가지형태로 이미지 제공
+1. 오피셜
+2. 오피셜하지 않은 형태 - 앞에 계정명이 붙음
+
+1. 도커허브 로그인
+2. 이미지 저장소 생성(도커허브)
+2.5 rm series, prune series 입력
+3. 이미지 만들기(로컬)
+docker build --tag docker docker-test:0.1 .
+4. 이미지 업로드
+-이미지 태깅
+-이미지 푸쉬
+
+docker images
+docker tag docker-test:0.1 gkskanj/docker-test:0.1
+docker push gkskanj/docker-test:0.1
+docker tag docker-test:0.1 gkskanj/docker-test:0.2
+docker push gkskanj/docker-test:0.2
+docker rmi $(docker images -qa) -f
+docker images
+docker pull gkskanj/docker-test:0.2
+
+docker run -i -t --name study gkskanj/docker-test:0.2 /bin/bash
+root@0722df7019e4:/# cd home
+root@0722df7019e4:/home# is
+bash: is: command not found
+root@0722df7019e4:/home# ls
+test
+root@0722df7019e4:/home#
+
+dockerswarm 물리적으로 떨어져있는 docker들을 마치 하나로 붙어있는것 같이
+network로 묶어줌. master mode로 다른 node들을 다 제어해서
+이쪽 node에 이거 저쪽 node에 저거 이런 식으로 setting이 가능함
+
+쿠버네티스(k8s) 도커스웜을 확장시켜서 서비스. 컨테이너를 등급으로 나눠서 역할별로
+자동으로 ㅡ해줌
+kubernetes
+
+bin folder랑 usr 라는 folder 내에 명령어가 들어가있음
+/usr local 에도 bin이 있대
+근데 왜 나는 cd.. 이 안먹히지
+로그 파일은 var folder 내에 있음
+
+ubuntu directory 치면 구조가 나온대
+https://webdir.tistory.com/101
+
+centos랑 ubuntu랑 directory structure가 다르대
+
+apt-get update 는 ubuntu에서 사용하는 ppt?를 관리하는 툴
+윰? 이라고 하는걸 쓴대
+
+apt-get install mysql-server
+y
+
+/etc/mysql 에 가면 설정파일들이 있음
+
+아파치나 뭐나 설치하면 다 etc로 들어옴
+
+apt-get install apache
+apt-get install
+which mysql 하면
+/usr/bin/에 있다고 나옴
+
+service mysql start
+
+exit;
+
+echo $PATH 보면 bin bin bin bin bin
+
+path라는 환경변수에 다 저장을 해놨기 때문에 되는것이다.
+
+echo $HOME 치면 /home으로 간대 (관리자 계정마다 다름)
+
+환경변수를 관리하는 방식이 linux랑 window랑 다르다
+
+$=변수입니다. $HOME = HOME이란 변수. $ 안치면 그냥 string으로 출력
+
+echo $HOME >> t
+t에  저장됨
+cat t 하면 /root 가 뜸. redirection 하는 과정
+
+마우스가 없어서 리다이렉션 하는거래
+
+echo "" >> t
+하면 빈 스트링 파일이 생성됨
+
+ubuntu 명령어 모음 googling
+
+ls. list 의 약자
+-l
+file과 folder들을 권한별로 구분하는 특징
+-a 앞에 .이 붙어있는 file folder 들은 숨김상태. ex: .git
+-al: a + l
+-h 용량 표시
+ls -ahl
+
+경로는 2가지로 구분
+- 절대경로: 어디서 접근하든 접근할 수 있음. 경로명만 맞으면. /를 사용
+- 상대경로: 내가 있는 위치를 기준으로 위치이동. ./, ../ 를 사용하면 상대경로
+그래서 . .. / 를 사용
+
+/경로 = root 경로. 최상위 경로부터 찾음
+ex: /home/test/test.html 하면
+root 경로부터 해서 /home/test/test.html 에서 찾음
+
+cd ~: echo $HOME 에 저장된 경로로 이동
+사용자 계정 root 가 기본저장된 형태
+
+touch는 빈파일 생성
+touch t.txt = echo "" >> t.txt
+
+mkdir = directory 생성
+
+cp = copy 파일복사
+cd t.txt ../t.txt 등
+cp t.txt ./test.txt
+cp -r test ./testtest
+
+mv = move 파일 이동
+1. 진짜 파일 이동
+2. 이름 변경
+
+mv t.txt ./test/t.txt -> 이동
+mv t.txt test.txt
+
+rm = remove 삭제
+rm -r test
+
+rm -rf /* - 올삭제
+
+cat = catenate
+파일 읽을때, 파일 출력할 때
+
+alias = 명령어 단축? 등록?
+
+ps - process 확인 명령어
+netstat - pc에서 어떤 ip에서 어떤 port로 열려있나 확인
+netstat은 설치를 해줘야 함
+apt-get install net-tools
+
+netstat -ntlp
+netatat -ntl
+
+
+ps -ef
+ps -ef | grep mysql
+
+top 치면 precess 리소스 확인 q쓰면 나가짐
+
+docker run -i -t --name test.container ubuntu:16.04 /bin/bash
+docker run -i -t --name test.container ubuntu:16.04 /bin/bash
+
+가상터미널
+가상디렉토리
+
+golang의 특징 = 여러언어의 혼합의 느낌을 줌
+주로 c와 java
+
+chaincode 도 leveldb를 이용
+
+go 언어는 컴파일 언어이고
+때문에 program 언어를 machinary 언어로 변경해서 실행을 하기 때문에
+실행하는데 시간이 소요되고 이를 exe(window의 경우)로 배포가 된다.
+
+여러 library를 동시에 run 하게 되면 test 파일로 unit test를 진행하게 된다.
+이 때 파싱하는 시간이 오래 걸린다.
+후에 01010101011010010 등 기계어로 변경 -> 배포하는 파일로 packaging 하게 된다.
+(이 과정이 build)
+
+go build main.go 하면 exe파일이 생성됨
+
+golang같은 경우 main package에서 main 함수를 제일 먼저 실행함.
+solidiy나 다른 언어들은 윗줄부터 실행을 하는데ㅡ
+
+eclipse 대신 sts. spring tool. jsp? jxp 라는 toolkit 까지 설치 해서.
+android 하려면 해야됨
+
+fmt = formatting의 약자
+.뒤에 오는 모든 문자열의 시작은 capital letter
+
+변수를 명시하지 않을 수 있는데, 이럴 때는 명시하지 않습니다 라고 표기해야 함
+
+
+golang은 기본적으로 동적타입을 제공하나, 정적타입도 지원 한다.
+
+program은 시간 타입이 두가지인데,
+1. 컴파일타임(build)
+2. 런타임(실행중)
+
+golang은 동적타입, 정적타입 둘다 지원.
+
+문자열인지 숫자인지 숫자도 실수인지 정수인지 정해지는 시간이
+golang은 컴파일(빌드할때) 정해짐
+
+이게 언제 정해지는지에 따라 시간이 달라짐.
+
+스크립트성 언어 js, py 등은 인터프리터가 따로 실행해줌.
+즉시 해석해서 즉시 출력
+컴파일 시간이 없음. 이걸 해주는게 CDN
+코드를 쓰면 일단은 실행이 됨.
+
+그렇기 때문에 런타임에 그 문자 타입이 정해짐.
+그래서 중간에 잘못된 타입의 문자가 들어오면 튕김.
+
+고랭은 exe를 만들 때 이미 이 문자타입이 정해지기 때문에, 컴파일 시에 잡아줌.
+이걸 더 잡아주고 절대 안튕기게 해주는게 rust언어
+
+a = 10 (정적타입)
+a := 10 (동적타입) ->이 되면 ㅇㅈ해줌
+
+golang은 chaincode를 배우기 위함임.
+
+컴파일러: exe(실행파일)
+인터프리터: exe(실행파일) 안만듬
+
+고랭은 예외처리할때 반복. 조건문 사용.
+
+leveldb랑 json 할때 구조처리를 해서 저장하기 때문에 이게 중요해서 한다는거고,
+나머지는 chaincode할 때 거의 이용을 안하기 때문에.
+각 언어의 사용 목적에 따라 깊이를 정해서 공부하는 것이 중요.
+
+\n = enter로 인식
+
+`` = multi line string 으로 enter 입력하면 줄바꿈이 됨
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+package main
+
+import "fmt"
+
+func main() {
+	k := 3
+
+	if k == 1 {
+		fmt.Println("hello")
+	} else if k == 2 {
+		fmt.Println("world")
+	} else {
+		fmt.Println("end")
+	}
+
+}
+
+golang도 조건문 쓴다는걸 보여준대ㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+func main() {
+	sum := 0
+
+	for i := 0; i <= 100; i++ {
+		sum += 1
+	}
+
+	fmt.Println(sum)
+
+}
+
+
+반복문ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+func say(msg string) {
+	fmt.Println(msg)
+}
+func main() {
+	say("알랄라랄라랑랑랑라")
+}
+함수ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+예1ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+func say(msg string) string {
+	return msg
+}
+func main() {
+	a := say("알랄라랄라랑랑랑라")
+	fmt.Println(a)
+}
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+예2ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+func say(msg string) (string, int) {
+	return msg, 10
+}
+func main() {
+	a, b := say("알랄라랄라랑랑랑라")
+	fmt.Println(a, b)
+}
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+정리하자면
+
+main을 패키징 하고 
+main 함수를 제일 먼저 실행
+
+.을 하고 명령어가 오면 대문자가 먼저오고
+대소문자를 각 private 하고 public 한걸 얘기하는데 대문자=public 소문자=private
+외부에서 이 함수를 가지고 사용할 수 없게 만든걸 private 하다고 하고
+할수 있는걸 public
+
+어디서는 대소문자 어디서는 _로 구분
+
+변수선언 = var 이름이 뭐고 변수타입은 뭐다.
+var a int
+
+const = 상수선언 + 이름 + 타입
+변수명 := '' = 변수선언 안하고 사용
+
+반복문 구구단, 피라미드, 다이아몬드?
+
+fmt.Println("\n")
+
+func main() {
+	blank := 10
+	for i := 0; i < blank; i++ {
+		fmt.Print("\n")
+		for j := blank - i; j < blank; j++ {
+			fmt.Print("*")
+		}
+	}
+
+}
+
+java에서 가장 많이 비교가 되는것이
+
+struct 와 class
+
+struct = attribute
+class = attribute + method(기능을 조작할수 있는)
+로 만들어진 것이 객체
+golang 도 객체를 이용할 수 있는데
+class 라는 것을 사용하지 않고 struct 에 method를 다른걸로 연결을 해서 사용
+
+
+struct = value만 가지고 있음
+class = value + action -> 자체적으로 value를 가지고 조작을 할 수 있음
+
+struct 라는 틀을 가지고 변수를 p1 := person{} 이런식으로 할당을 해서 
+//이과정을 인스턴스라고 함
+//붕어빵 틀이 class, 틀안에 뭔가를 채워넣는 과정이 instance, 결과물이 객체(object)
+
+object-oriented Programming OOP : 객체 지향 프로그래밍
+
+code의 재작업의 활용도가 높은 것이 OOP
+
+p1의 health, exp, lv, mana, 움직임, 등 등 등의 틀이 만들어져 있으면,
+새 몬스터 추가할때 동일 클래스에 다른 값만 넣어주면 
+code를 새로 짤 필요가 없대. 이개 OOP
+
+unit class에 전유닛 공통속성을 처리하고
+하위에 지상 공중 이런식으로 move만 따로 setting
+data관점으로 설계를 하겠다 하는게 OOP
+
+data 내에서 p1, p2  이런식으로 각각의 class 의 주소로 접근하는게
+pointer
+
+part 0 pdf. 63 page
+8. method 에서
+Rect로 구조체를 만든다음에
+
+p1 area
+p2 area 각각의 p1, p2에서의 area를 호출할 때
+class 내부에서 쓸수있는 함수를 method 라고 하는데
+소스에 접근을 할 때
+어디에 접근을 하는지 개념이 잡혀야 함
+
+rect(10, 20)
+rect(100, 200) 각각 area가 다른데,
+r Rect는 뭐냐.
+이 함수를 호출한 호출자 를 인자로 받아서
+각각의 호출자에 따라 다른 주소값으로 접근을 함.
+
+rect1.area
+rect2.area 각각의 주소에서 width와 height로 접근을 함.
+결국 자기 꺼에 있는 area로 접근을 해서 값을 계산
+* 연산이 있으니까 각각 200과 20000
+
+우측항에 r *Rect 에서 *이 pointer
+
+r.width++ 라 11이 되는데
+
+보통 불러오게 되면 copy를 해서 메모리데이터에서 연산을하고 데이터가 날아가는데
+보통 콜하고 밸류를 준다 라서 밸류 출력후 날아가는데,
+
+*을 치게 되면 카피안하고 원본데이터에서 불러와서 연산후에
+콜하고 레퍼런스를 준다 형식이 되어서 원본데이터가 나오고
+값을 불러오고 저장.
+
+
+
+
+함수는 메모리로 관리.
+함수는 메모리를 얼마나 차지하냐가 핵심인데,
+
+cpu는 단일처리, 메모리는 병렬처리
+
+그래서 함수는 메모리에서 어디서 불러와라 라고 하는 주소지점이 있음.
+포인터로 뭐 가르키는게 있대.
+
+예를들어 func say(msg string) {
+println(msg)
+}
+라는 함수가 있다면, 메모리를 얼마나 잡아먹느냐가 문제인데, (혹은 어디서 불러오냐?)
+어느지점?
+실제 메모리 내에서
+msg가 저장되어있는 부분과 say() 가 저장돼 있는 부분이 있을텐데,
+cpu에서 각각 메모리들 내에 각 그 부분의 주소값이 save point 처럼 저장이 돼 있을것이고
+
+msg부분을 읽으면 뭐 왔다갔다 한대, 이개 스택정리라하고
+뭘 정리를 하는게 레지스터라 하고,
+포인터를 이용하는 이유가 메모리 최적화를 위함이래.

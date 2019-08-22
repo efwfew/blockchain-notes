@@ -1,0 +1,63 @@
+express 의 기능중에 http.createServer
+
+모든 데이터는 fs.readFile('./static/index.html')
+이 루트폴더로 들어온다
+
+함수안에 함수가 들어온게 폴백함수, 비동기로 이벤트를 처리하는 방식에 많이 사용
+
+function(err, data)
+이 안에 에러가 있으면 메세지로 보여줌
+
+http는 한번 접속해 데이터 전송 후에 접속이 끊김
+
+writeHead: head 부분에 어떤 종류의 data고 text 인지 image 인지 써주고
+write(data): 성공적으로 compile 된 data를 binary화 해서 전송해 표현함
+
+app.use: css나 js 파일을 경로로 지정해 연결해줌
+
+html 코드부분은 
+head, body
+
+css 부분은 html 꾸며주는 정의들을 보여줌
+
+On() 함수는 이벤트 함수로 호출시 내부 콜백 함수 수행
+
+html에서
+div id="chat"
+이 채팅 메시지 영역이라고 되어있는데,
+이 영역을 js에서 찾아서 뿌려주고있는건데,
+
+메세지창에 메세지를 입력하고 send를 누르면 client js에서
+function send 쪽이 출력이 되는 것인데,
+
+send를 눌렀을때 값을 뽑아오는 방식은 이구문들로 뽑아오게 되는데,
+
+외부 dorm 형식으로 문서를 관리하는데,
+웹브라우저를 하나 실행하면 dorm이 생성이되고 root부터 해서 체계적으로
+data를 관리하게 되는데
+이것을 html form 형식에 맞춰서 표현만 담당하게 되고
+내부적으로는 dorm 형식이 관리
+
+getElementById 는 id에 따라서 요소를 가져오는 구문인데,
+이런식으로 함수를 만들어라.
+'test'에서 가져오게 되어있는데
+html형식에서 id=test 부분에서 가져오게 되는 것.
+
+내부적으로는 input 항에서 value에 값을 집어넣게 되면 기록이 남게 되는 것.
+
+이 message를 socket으로 통해서 emit 하게 되는것. 이것이 json format
+key, value 
+key, value 형식
+value 값의 type이나 기타들을 설정 -> 출력
+
+message 형식으로 socket으로 만든항 = io.sockets.emit 항
+
+socket.on 항에서 console.log로 뿌려주고
+
+socket.broadcast.emit으로 전송 - event를 'update' 항으로 인식받아 전송
+
+받은거를 다시 자기 창에다가 꾸며주는 형식이 
+
+var message = document. ~ chat.appendChilde(message) 항까지
+-> 예쁘게 출력
+

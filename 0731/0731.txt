@@ -1,0 +1,605 @@
+< 복습 > 계산기 만들기
+mkdir calculator
+cd calculator
+vi calculator.cpp
+파일 내용 작성하기
+
+#include <eosio/eosio.hpp>
+#include <eosio/name.hpp>
+
+class [[eosio::contract]] calculator : public eosio::contract {
+  public:
+    using eosio::contract::contract;
+
+   [[eosio::action]]
+    void add(uint64_t a, uint64_t b) {
+        eosio::print_f("a + b = %\n", a+b);
+    }
+
+   [[eosio::action]]
+    void sub(uint64_t a, uint64_t b) {
+        eosio::print_f("a - b = %\n", a-b);
+    }
+
+   [[eosio::action]]
+    void cub(uint64_t a, uint64_t b) {
+        eosio::print_f("a / b = %\n", a/b);
+    }
+
+   [[eosio::action]]
+    void multi(uint64_t a, uint64_t b) {
+        eosio::print_f("a * b = %\n", a*b);
+    }
+  };
+저장은 esc누르고 shift+; 그리고 wq 엔터누르기
+
+컴파일 하기
+eosio-cpp -abigen calculator.cpp -o calculator.wasm
+
+cd eosio-cli-helper로 가서 컨트랙트 배포하기
+./cleos.sh set contract hello22sutdy ~/calculator
+
+만약 Error 3080001: Account using more than allotted RAM usage 에러가 뜨면 buyram하기
+./cleos.sh system buyram hello22study hello22study "1 EOS"
+
+컨트랙트 배포할 계정 하나 필요-> 계정 생성하기 (정글사이트 create account하기)
+계정 생성하고 eos 무료로 faucet 배포 받기    계정3 : hello22study (EOS8QkxyydSKdR8Y6hGjbcdAjVc4QBgq54pq7wBpFgfX6KrV39PSv)
+만약 계정 퍼블릭키 모르면 ./cleos.sh get account hello22study
+
+계정 unlock 해주기
+./cleos.sh wallet unlock -n eoswallet --password PW5Joi4xfgYRY4giXpNu1UsVeMN5LvsiQ9pgGufVEwBppy9J9rw9c
+
+컨트랙트 실행하기
+class3@DESKTOP-IQACB0P:~/eosio-cli-helper$ ./cleos.sh push action hello44study add '[200, 100]' -p hello44study@active
+executed transaction: 71835510d6569d94b10e0f8b41e1c2ea00dcaba17842cdfac7bb82e1f960fcaf  112 bytes  199 us
+#  hello44study <= hello44study::add            {"a":200,"b":100}
+>> a + b = 300
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+class3@DESKTOP-IQACB0P:~/eosio-cli-helper$ ./cleos.sh push action hello44study sub '[200, 100]' -p hello44study@active
+executed transaction: b211e5d36957400986fb81791f888933490afbb13634247a40738afe91683201  112 bytes  221 us
+#  hello44study <= hello44study::sub            {"a":200,"b":100}
+>> a - b = 100
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+class3@DESKTOP-IQACB0P:~/eosio-cli-helper$ ./cleos.sh push action hello44study cub '[200, 100]' -p hello44study@active
+executed transaction: c351d9cb2914cc7c62d66d47f144e0298b57fa5e979ee326f342e6ad00c40691  112 bytes  146 us
+#  hello44study <= hello44study::cub            {"a":200,"b":100}
+>> a / b = 2
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+class3@DESKTOP-IQACB0P:~/eosio-cli-helper$ ./cleos.sh push action hello44study multi '[200, 100]' -p hello44study@active
+executed transaction: e9edfb4c825dc951e91d12f0b0c339fa16efd4aef5b6ba88c5157d9fef9006d3  112 bytes  177 us
+#  hello44study <= hello44study::multi          {"a":200,"b":100}
+>> a * b = 20000
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+결과값을 테이블에 저장하기
+
+
+#include <eosio/eosio.hpp>
+#include <eosio/name.hpp>
+
+class [[eosio::contract]] calculator : public eosio::contract {
+        public:
+                //using eosio::contract::contract;
+        calculator(name receiver, name code, datastream<const char*> ds): contract(receiver, code, ds) {}
+        [[eosio::action]]
+        void add(unit64_t a, unit64_t b){
+                unit64_t result = a + b;
+                eosio::print("a + b : ", result);
+        }
+        [[eosio::action]]
+        void sub(unit64_t a, unit64_t b){
+                unit64_t result = a - b;
+                eosio::print("a - b = ", result);
+        }
+        [[eosio::action]]
+        void div(unit64_t a, unit64_t b){
+                unit64_t result = a / b;
+                eosio::print("a / b = ", result);
+        }
+        [[eosio::action]]
+        void multi(unit64_t a, unit64_t b){
+                unit64_t result = a * b;
+                eosio::print("a * b = ", result);
+        }
+        private:
+	struct [[eosio:table]] operation {
+		name key;
+		unit64_t a;
+		unit64_t b;
+		unit64_t result;
+		unit64_t primary_key() const { return key.value; }
+	}
+	typedef eosio:multi_index<"operation"_n, operation> operation_index;
+		
+};
+
+./cleos.sh get table
+
+./cleos.sh get table petereostest petereostest operation
+
+./cleos.sh get abi petereostest
+
+
+
+
+./cleos.sh set contract petereostest ~/calculator
+./cleos.sh set contract petereostest ~/calculator
+
+./cleos.sh push action petereostest add '["petereostest", "3", "8"]' -p petereostest@active
+
+key.value = account
+
+
+#include <eosio/eosio.hpp>
+using namespace eosio;
+
+class [[eosio::contract]] calculator : public eosio::contract{
+        public:
+                //using eosio::contract::contract;
+
+        calculator(name receiver, name code, datastream<const char*> ds): contract(receiver, code, ds){}
+
+        [[eosio::action]]
+        void add(name user, uint64_t a, uint64_t b){
+                uint64_t result = a + b;
+                eosio::print("a + b = ", result);
+                operation_index operation_tbl(get_self(), get_first_receiver().value );
+                auto iterator= operation_tbl.find(user.value);
+                if ( iterator == operation_tbl.end() ) {
+                operation_tbl.emplace(user, [&]( auto& row) {
+                        row.key = user;
+                        row.a = a;
+                        row.b = b;
+                        row.result = result;
+                });
+                } else {
+                        operation_tbl.modify(iterator, user, [&]( auto & row) {
+                                row.key = user;
+                                row.a = a;
+                                row.b = b;
+                                row.result = result;
+                        });
+                }
+        }
+        [[eosio::action]]
+        void sub(uint64_t a, uint64_t b){
+                uint64_t result = a - b;
+                eosio::print("a - b = ", result);
+        }
+        [[eosio::action]]
+        void div(uint64_t a, uint64_t b){
+                uint64_t result = a / b;
+                eosio::print("a / b = ", result);
+        }
+        [[eosio::action]]
+        void multi(uint64_t a, uint64_t b){
+                uint64_t result = a * b;
+                eosio::print("a * b = ", result);
+        }
+        private:
+        struct [[eosio::table]] operation {
+                name key;
+                uint64_t a;
+                uint64_t b;
+                uint64_t result;
+                uint64_t primary_key() const { return key.value; }
+                };
+                typedef eosio::multi_index<"operation"_n, operation> operation_index;
+};
+
+
+class3@DESKTOP-F5Q6G0E:~/calculator$ eosio-cpp -abigen calculator.cpp -o calculator.wasm
+Warning, empty ricardian clause file
+Warning, empty ricardian clause file
+Warning, action <add> does not have a ricardian contract
+Warning, action <sub> does not have a ricardian contract
+Warning, action <div> does not have a ricardian contract
+Warning, action <multi> does not have a ricardian contract
+
+class3@DESKTOP-F5Q6G0E:~/eosio-cli-helper$ ./cleos.sh set contract petereostest ~/calculator
+Reading WASM from /home/class3/calculator/calculator.wasm...
+Skipping set abi because the new abi is the same as the existing abi
+Publishing contract...
+executed transaction: eb58f5431b166956dff7a4158587367f7b64959c8644801a33b78e6e578d3974  2552 bytes  619 us
+#         eosio <= eosio::setcode               {"account":"petereostest","vmtype":0,"vmversion":0,"code":"0061736d010000000169126000006000017f60027...
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+class3@DESKTOP-F5Q6G0E:~/eosio-cli-helper$ ./cleos.sh get table petereostest petereostest operation
+{
+  "rows": [{
+      "key": "petereostest",
+      "a": 3,
+      "b": 8,
+      "result": 11
+    }
+  ],
+  "more": false
+}
+class3@DESKTOP-F5Q6G0E:~/eosio-cli-helper$ ./cleos.sh push action petereostest add '["petereostest", "3", "11"]' -p pete
+reostest@active
+executed transaction: 8f68856f98a11d71cafb7c7599eff3f83695134e23157a7357f7762cc6dfc7bf  120 bytes  242 us
+#  petereostest <= petereostest::add            {"user":"petereostest","a":3,"b":11}
+>> a + b = 14
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+class3@DESKTOP-F5Q6G0E:~/eosio-cli-helper$ ./cleos.sh get table petereostest petereostest operation
+{
+  "rows": [{
+      "key": "petereostest",
+      "a": 3,
+      "b": 11,
+      "result": 14
+    }
+  ],
+  "more": false
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ eosio-cpp -abigen calculator.cpp -o calculator.wasm
+
+
+#include <eosio/eosio.hpp>
+using namespace eosio;
+
+class [[eosio::contract]] calculator : public eosio::contract {
+    public:
+        using eosio::contract::contract;
+
+     // using eosio::contract::contract
+     calculator(name receiver, name code, datastream<const char*> ds):contract(receiver, code, ds){}
+
+    [[eosio::action]]
+    void add(name user, uint64_t a, uint64_t b) {
+        uint64_t result = a+b;
+        eosio::print_f("a + b = %\n", result);
+        // get_self() -> ram 지불할 사용자
+        // get_first_receiver().value 파라미터 값
+        operation_index operation_tbl(get_self(), get_first_receiver().value);
+        auto iterator = operation_tbl.find(user.value);
+        if(iterator == operation_tbl.end()){
+           // emplace => DB에 insert 값
+           operation_tbl.emplace(user, [&]( auto& row) {
+                row.key = user;
+                row.a = a;
+                row.b = b;
+                row.result = result;
+           });
+        } else {
+   operation_tbl.modify(iterator, user, [&]( auto& row ) {
+                row.key = user;
+                row.a = a;
+                row.b = b;
+                row.result = result;
+           });
+        }
+    }
+
+    [[eosio::action]]
+    void sub(name user, uint64_t a, uint64_t b) {
+        uint64_t result = a-b;
+        eosio::print_f("a - b = %\n", result);
+        operation_index operation_tbl(get_self(), get_first_receiver().value);
+        operation_tbl.emplace(user, [&]( auto& row) {
+                row.key = user;
+                row.a = a;
+                row.b = b;
+                row.result = result;
+        });
+    }
+
+    [[eosio::action]]
+    void div(name user, uint64_t a, uint64_t b) {
+        uint64_t result = a/b;
+        eosio::print_f("a / b = %\n", result);
+        operation_index operation_tbl(get_self(), get_first_receiver().value);
+        operation_tbl.emplace(user, [&]( auto& row) {
+                row.key = user;
+                row.a = a;
+                row.b = b;
+                row.result = result;
+        });
+    }
+
+    [[eosio::action]]
+    void multi(name user, uint64_t a, uint64_t b) {
+        uint64_t result = a*b;
+        eosio::print_f("a * b = %\n", result);
+        operation_index operation_tbl(get_self(), get_first_receiver().value);
+        operation_tbl.emplace(user, [&]( auto& row) {
+                row.key = user;
+                row.a = a;
+                row.b = b;
+                row.result = result;
+        });
+    }
+
+     [[action]]
+     void erase(name user) {
+        operation_index operation_tbl(get_self(), get_first_receiver().value);
+        auto iterator = operation_tbl.find(user,value);
+        // check(iterator);
+        operation_tbl.erase(iterator);
+     }
+     private :
+        struct [[eosio::table]] operation {
+                name key;
+                uint64_t a;
+                uint64_t b;
+                uint64_t result;
+                uint64_t primary_key() const {return key.value;}
+        };
+        typedef eosio::multi_index<"operation"_n, operation> operation_index;
+};
+
+
+
+vi ~/calculator/calculator.cpp
+eosio-cpp -abigen calculator.cpp -o calculator.wasm
+./cleos.sh set contract petereostest ~/calculator
+./cleos.sh push action petereostest erase '["petereostest"]' -p petereostest@active
+
+
+
+
+EOS 는 eosio::action 이 하나의 fuction 개념
+
+1. create: 토큰의 생성
+2. issue: 토큰을 발행하여 공급
+3. transfer 토큰을 from에서 to에게 전송
+4. retire: token의 소각
+
+eosio.token.hpp 를 먼 저보면
+
+void open 항을 보면 owner, symbol, ram_payer 가 존재
+
+강사가 포기함
+
+
+
+RPC 란?
+Remote procedure call의 약자로 ~
+
+./cleos.sh get info 에 나온 결과로
+
+last irreversible_block_num 가 4189만 이 나오는데, 이게 높이.
+
+curl --request POST --url http://jungle2.cryptolions.io/v1/chain/get_info 이렇게 쳐도 나오긴 함.
+
+서버 정글넷에서 받아와서.
+
+Json RPC
+reading blockchain state only require an istance of ‘JsonRpc’ connected to a node; 
+
+ Api
+To send transactions and trigger actions on the blockchain, you must have an istance of Api
+
+
+npm init
+
+* warn project name 을 eosjs로 하면 install이 안됨
+
+npm install node-fetch
+npm install eosjs
+
+create 01_connectRpc.js
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+const { JsonRpc } =require('eosjs');
+const fetch = require('node-fetch');
+const rpc = new JsonRpc('http://jungle2.cryptolions.io:80', { fetch });
+
+// red eos blockchain info
+rpc.get_info().then(console.log);
+
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+node 01_connectRpc.js
+
+{ server_version: '14185431',
+  chain_id:
+   'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473',
+  head_block_num: 41902782,
+  last_irreversible_block_num: 41902449,
+  last_irreversible_block_id:
+   '027f6171d42dc57bd8568429c0a98a957303a4248f7a4f58cc8eb6902d206917',
+  head_block_id:
+   '027f62be88bd867197cf535e0aa4c7c8819be93b8f27d46660a58aba70d3986d',
+  head_block_time: '2019-07-31T08:10:11.000',
+  head_block_producer: 'eosbarcelona',
+  virtual_block_cpu_limit: 200000000,
+  virtual_block_net_limit: 524288000,
+  block_cpu_limit: 199900,
+  block_net_limit: 524288,
+  server_version_string: 'v1.8.1',
+  fork_db_head_block_num: 41902782,
+  fork_db_head_block_id:
+   '027f62be88bd867197cf535e0aa4c7c8819be93b8f27d46660a58aba70d3986d' }
+
+
+
+get info 주석처리하고 
+
+rpc. get_block(2).then(console.log) 추가 후 node
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+{ timestamp: '2018-11-23T16:25:01.000',
+  producer: 'eosio',
+  confirmed: 0,
+  previous:
+   '00000001a97e344b18ae9b1a33441ddeb98fc1d60bccdcc819dbe4949c01f7d2',
+  transaction_mroot:
+   '0000000000000000000000000000000000000000000000000000000000000000',
+  action_mroot:
+   'daee29be428b73cfb1c6b832e1ab5ed81f6a6c56617ee0bc490e6b763541f162',
+  schedule_version: 0,
+  new_producers: null,
+  header_extensions: [],
+  producer_signature:
+   'SIG_K1_Jzm7zAp2qWBkewPjSCwa4W8aFeKZS2CwJ7nMyq1u4azRLC3qdZJeEBeazaJDaGhj14FPLa8PZk36m9M3uv5M2YRW5t1HVV',
+  transactions: [],
+  block_extensions: [],
+  id:
+   '00000002ef2ba759f44fc78461753157cfd7ed3d1413eca78fe4a528b0e98866',
+  block_num: 2,
+  ref_block_prefix: 2227654644 }
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+https://jungle.bloks.io/block/2 여기서의 2번과 ID가 동일한지 확인
+
+rpc.get_account('petereostest').then(console.log) 하면
+내 계정 정보도 나온다.
+
+복붙 안함.
+
+
+rpc.get_currency_balance('컨트랙트명', '자기계정명','어떤 심볼인지')
+
+rpc.get_currency_balance('eosio.token', 'petereostest', 'EOS').then(console.log)
+
+eos.transact({
+    actions: [{
+        account: 'eosio.token',
+        authorization: [{
+            actor: //< 토큰전송 계정>,
+            permission: 'active',
+        }],
+        data : {
+            from: // <토큰 전송 계정>,
+            to: // <토큰 전송 받는 계정>,
+            quantity: // <토큰 보내는 양>,
+            memo: // <memo>
+        }
+    }]
+    }, {
+        blockBehind: 3,
+        expireSeconds: 30,
+        })
+    console.log(result)
+    })
+}
+
+
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+async function transfer () {
+    const result = await eos.transact({
+    actions: [{
+        account: 'eosio.token',
+        name: 'transfer',
+        authorization: [{
+            actor: //< 토큰전송 계정>,
+            permission: 'active',
+        }],
+        data : {
+            from: // <토큰 전송 계정>,
+            to: // <토큰 전송 받는 계정>,
+            quantity: // <토큰 보내는 양>,
+            memo: // <memo>
+        }
+        }]
+    }, {
+        blockBehind: 3,
+        expireSeconds: 30,
+        })
+    console.log(result)
+    })
+}
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+permission 에는 active 와 owenr 권한이 있음.
+
+quantity 에 2 EOS를 보내고싶다면 2.0000 EOS 라고 적어야됨.
+
+여기에 private key를 저장을 해놓은거를 배열해서 위에 선언을 해줬는데,
+private key를 이 키로 사인을 하세요 하는 구문이 들어가야 함.
+
+const privateKeys = []; 여기에.
+
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+강사꺼
+const { Api, JsonRpc } = require('eosjs');
+const fetch = require('node-fetch');
+const { JsSignatureProvider } = require('eosjs/dist/eosjs-jssig');
+const { TextDecoder, TextEncoder } = require('util');
+const privateKeys = ['5JRk3M7JL4Ku8NRo9YVFBW2kzDjub9jkcsn73iCyLfYEa19dWpG'];
+const signatureProvider = new JsSignatureProvider(privateKeys);
+const rpc = new JsonRpc('http://jungle2.cryptolions.io:80', { fetch });
+const eos = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
+
+
+async function transfer () {
+    const result = await eos.transact({
+        actions: [{
+            account: 'eosio.token',
+            name: 'transfer',
+            authorization: [{
+              actor: 'hexlantalex3',
+              permission: 'active',
+            }],
+            data: {
+                from: 'hexlantalex3',
+                to: 'lioninjungle',
+                quantity: '1.0000 EOS',
+                memo: 'send transfer'
+            }
+          }]
+        }, {
+          blocksBehind: 3,
+          expireSeconds: 30,
+        })
+    console.log(result)
+}
+
+transfer()
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+내꺼
+const { Api, JsonRpc } = require('eosjs');
+const fetch = require('node-fetch');
+const { JsSignatureProvider } = require('eosjs/dist/eosjs-jssig');
+const{ TextDecoder, TextEncoder } = require('util');
+const privateKeys = ['5JeqGuVt79ZUeQh1rekay7zGoutW7pzoCQR8Awr4fvuQ8oykv3D'];
+const signatureProvider = new JsSignatureProvider(privateKeys);
+const rpc = new JsonRpc('http://jungle2.cryptolions.io:80', { fetch });
+const eos = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
+
+
+async function transfer () {
+    const result = await eos.transact({
+    actions: [{
+        account: 'eosio.token',
+        name: 'transfer',
+        authorization: [{
+            actor: 'petereostest',
+            permission: 'active',
+        }],
+        data : {
+            from: 'petereostest',
+            to: 'petereostes3',
+            quantity: '3.0000 EOS',
+            memo: 'send transfer'
+        }
+       }]
+    }, {
+        blockBehind: 3,
+        expireSeconds: 30,
+        })
+    console.log(result)
+}
+
+transfer ()

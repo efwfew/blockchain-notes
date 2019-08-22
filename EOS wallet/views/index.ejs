@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!--부트스트랩-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+</head>
+<body>
+    <!-- 로그인 -->
+    <h1>EOS wallet</h1>
+    <form action="/login">
+        <button type="submit">Login</button>
+    </form>
+    <!--토큰전송-->
+    <form action="/transfer">
+        <button type="submit">transfer token</button>
+    </form>
+    <!-- 계정 확인 버튼-->
+    <button type="button" id="accountButton" data-toggle="modal" data-target="#getacctModal">계정 정보</button>
+
+    <!-- 계정 확인 버튼 클릭 시 생성될 Modal 화면 -->
+    <div class="modal fade" id="getacctModal" tabindex="-1" role="dialog" aria-labelledby="getacctModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> 계정 정보 </h5>
+                    <div class="modal-body">
+                        <p>계정 명</p> <input type="text" name="accountName" id="accountName" value="">
+                        <p>토큰 잔액</p> <input type="text" name="liquidBalance" id="liquidBalance" value="">
+                        <p>CPU</p> <input type="text" name="cpuWeight" id="cpuWeight" value="">
+                        <p>NET</p> <input type="text" name="netWeight" id="netWeight" value="">
+                    </div>
+                </div>
+                <div class=modal-footer>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">나가기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            getAccount();
+
+            $("#accountButton").click(function() {
+                getAccount();
+            })
+        })
+
+        function getAccount() {
+            $.post('/get_account', function(data) {
+                console.log(data);
+
+                var accountName = data.account_name;
+                var liquidBalance = data.core_liquid_balance;
+                var cpuWeight = data.cpu_weight;
+                var netWeight = data.net_weight;
+                console.log(accountName)
+
+
+                $(document).on("click", "#accountButton", function () {
+                    $(".modal-body #accountName").val(accountName);
+                    $(".modal-body #liquidBalance").val(liquidBalance);
+                    $(".modal-body #cpuWeight").val(cpuWeight);
+                    $(".modal-body #netWeight").val(netWeight);
+                })
+
+            })
+        }
+        
+    
+    </script>
+
+</body>
+</html>

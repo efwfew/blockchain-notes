@@ -1,0 +1,41 @@
+- 지갑을 unlock 상태로 만들어줌(전송 등 할 수 있다.)
+./cleos.sh wallet unlock -n eoswallet --password PW5Ht2MVnw9CW6j5kZbThedDyi72szUDbqRqM5ruFznoWvsdCtvxj
+
+eosio
+
+./cleos.sh create key --to-console
+=>
+Private key: 5JeqGuVt79ZUeQh1rekay7zGoutW7pzoCQR8Awr4fvuQ8oykv3D
+Public key: EOS5ZZepQMirgVm94LjSZqFohn8pkXHQaT5aHD8ZZzYfCkc99zJkP
+
+./cleos.sh wallet unlock -n eoswallet --password 
+
+Creating wallet: eoswallet
+Save password to use in the future to unlock this wallet.
+Without password imported keys will not be retrievable.
+"PW5JqnFUFaY5SCURUuDafujPXvJLom8Dn5ENrmUefV8zoCCTegqkB"
+
+
+class3@DESKTOP-F5Q6G0E:~/eosio-cli-helper$ ./cleos.sh create key --to-console
+Private key: 5KGJC8zCSzvaw4BUpvmGWZXxepewZhCCanAJ9PSFLEXvcttoE9e
+Public key: EOS6fodrCaXCsBXhcqeRaC3PLcWqDTDuvsEz5DZUCXqSK49feYhv2
+.
+
+
+
+
+Creating wallet: eoswallet2
+Save password to use in the future to unlock this wallet.
+Without password imported keys will not be retrievable.
+"PW5JNnJ5yPZAegX3KZhHZ68syeSXpU5pQxEKCo9BC4ybAB93GFLY4"
+
+Private key: 5KCf465Qzgsd5ixNogJQGCbi63R94vnQpW3BUUr3vcHJMu1eAeo
+Public key: EOS7T1YeVsLXBL8sYFYE1JEwwe3p3RQTo8QyVqPs5qbGrqN3ayLci
+
+
+- ram 사고팔기
+살때는 기본적으로 EOS로 구매
+./cleos.sh  system buyram eoseunjutest eoseunjutest "1 EOS"
+팔때는 Byte로 판매 
+./cleos.sh system sellram eoseunjutest 1000
+

@@ -1,0 +1,68 @@
+객체지향언어?
+함수형언어?
+
+기존에 언어들은 다 개발이 되어 있음. 
+기존 자료를 얼마나 어떻게 자료화해서 빠르게 이용하느냐가 중요.
+
+block chain platform
+
+이더리움
+여러 node 들이 전부 data를 생성할수는 없으니 한정된 자원이 data를 생성
+작업증명방식이라고 1만개(이상) 정도의 node 들이 돌고있는데
+하나의 node만 data 생성 권한이 있음
+
+
+지분증명방식? EOS
+국회처럼 투표할수있는 시스템? 21개로 정해짐
+
+hyperledger - private한 블록체인
+
+합의알고리즘(POW)
+여러 node들중에 생성할 수 있는 권한을 아무나 가질 수 없으니
+'원장'
+
+block transaction 거래, 매매 처리(과정) state
+	consensus - 의견일치 합의
+
+tx pool에 있는 transaction들을 가져온대
+
+블록체인 도입 시 아키텍쳐
+
+web3 - web server - tx node - mining node (stake node)
+
+비트코인을 사용하지 않는 이유
+이더리움은 무제한으로 데이터를 계산할수 있는 로직같은게 어쩌구 가능한데
+비트코인은 그 가능성이 1 mega로 제한
+속도도 늦고 어쩌구 해서 어플리케이션 개발에 제한이 있음
+
+속도를 빠르게 하기위한 기술들이 나오고 있대
+
+정보의 투명성이나 신뢰도를 위해서라도 블로체인으로 publication 검증
+
+geth - 만개의 node 중에서 하나가 setting 되도록 설치가 됨
+
+fabric - 처음부터 클라우드 방식으로 이용되도록 개발이 되고 사용중임
+
+계약코드 작성 언어
+
+이더리움 - solidity 언어. viper LLL serpent 비언어? 코드? 모름
+이오스 - c++ 알면 바로 가능
+
+이더리움 - java script, 파이선 지원
+
+패브릭 - 자바 나 고 같은 언어로도 개발을 할 수있게 지원
+
+
+dApp
+Decentraized Application 탈 중앙화 어플을 통칭
+
+제일 먼저 나온게 게임
+크립토키티 가 가장 성공 - 리액트(자바를 손쉽게 만들 수 있는 프로그램)
+고크립토봇 - 유니티 3d 방식
+ethergoo
+
+dApp 에서 거래되는 코인 - token
+etherscan 에서 검색이 가능?
+
+crowdsale - ico 방식? 작년 유행
+

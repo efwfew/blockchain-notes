@@ -1,0 +1,274 @@
+geth -> 노드구축 -> 블록체인 네트워크 구축
+
+외부 프로그램으로 연동(metamask, remix)
+
+깃을 쓰면 미련없이 삭제가능
+
+github.com -> 소스형상관리툴
+myopinion@naver.com
+sksms29
+https://guides.github.com/activities/hello-world/ 깃허브 가이드
+
+보통 새컴사면 까는거
+1. github
+2. 코드편집툴 ex) eclipse, vscode 등
+3. 터미널세팅
+4. 기타 oracle 등
+
+명령어 손에 익히기
+
+0x 16진수 hexa
+
+octa = 0O
+
+10진수는 암것도 없고
+
+2진수=0b
+
+1. pk1 디렉터리 생성
+2. 계정하나 생성 geth --datadir $PWD account new
+dfc733d6a6c70d4b16623902a73fad8a386d3552
+3. genesis.json 파일 생성(alloc, coinbase) - indent 정리
+4. 제네시스 블록 생성 geth --datadir $PWD init genesis.json
+5. 노드실행
+geth --networkid 1234 --datadir $PWD --rpc --rpcport 8545 --rpcaddr "0.0.0.0" --rpccorsdomain "*" --rpcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --port 30303 console
+6. metamask 실행
+7. metamask에서 이더리움 노드접속 네트워크 선택에서 로컬네트워크 8545
+8. 
+(josn file=keystore file)
+
+
+admin.nodeInfo
+admin.Peer(
+
+
+git 을 hub로 공유
+
+commit: save(로컬저장)
+push: 로컬에 저장된 commit을 github로 업로드
+pull: 프로젝트 하나를 여러명이서 작업한걸 푸쉬하면 걸 다운로드
+
+>> : pipeline 파이프라인
+왼쪽껄로 오른쪽에 보내겠다
+
+gdsgsadg >> a
+
+gdsgsadg 란 걸 a 에다 보내라
+
+geth --datadir $PWD >> log.txt
+하면 내용이 log.txt로 저장됨
+
+폴더앞 .은 숨김폴더
+
+ls=결과
+리눅스는 ls붙이면 숨김폴더로 안보이고
+ls -a 하면 보인대
+
+초 = 실행파일. 파 = 폴더. 흰 = 일반파일.
+
+git status -> 빨간거 뜨는데 그게 추가가된거래
+
+git add README.mnd
+
+clear
+
+git commit -m "created project"
+
+git config --gloabal user.email "자기메일"
+
+git config --global user.name "이름"
+
+git commit -m "created project"
+
+git log -> 커밋 내역이 나옴
+
+원래는 git push 하면되는데 이게안되서
+git remote add origin https://github.com/PeterKimG/test.git
+이 과정이 들어가야 됨
+
+강의실@DESKTOP-HKGE1BN MINGW64 ~/Desktop/test (master)
+$ git commit -m "created project"
+[master (root-commit) 26e7deb] created project
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+
+강의실@DESKTOP-HKGE1BN MINGW64 ~/Desktop/test (master)
+$ git log
+commit 26e7deb492d0c0fdb5a5f90faf6a999a520a3a64 (HEAD -> master)
+Author: PeterKimG <myopinion@naver.com>
+Date:   Thu Jul 11 10:57:10 2019 +0900
+
+    created project
+
+강의실@DESKTOP-HKGE1BN MINGW64 ~/Desktop/test (master)
+$ git push -u origin master
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 224 bytes | 224.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/PeterKimG/test.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+
+
+
+rm -rf test = 디렉토리 삭제 ????
+
+git clone url = 다운됨
+
+origin master 개념은 branch 개념이라는게 있는데
+a라는 브랜치 b라는 브랜치를 따면은
+a랑 b랑 다르게 진행되다가 합칠수가 있는데 이를 murge라고 함
+
+합쳐서 하나의 브랜치 아이디를 만들 수 있대
+이런식으로 해서 협업을 해서 개발을 많이 하는데,
+구글링 git branch 정책// 브랜치 정책 이라고 하는게 있다.
+
+git 
+init
+pull
+push
+commit
+
+eth.getBalance(eth.accounts[0])
+
+eth.pendingTransactions
+eth.getTransaction(
+
+personal.unlockAccount(eth.accoutns[0])
+
+remix environment web3 provider
+
+여기서 pending transaction 확인에서 to가 null로 나오는데
+miner가 어쩌구하면 to가 생성이된다
+
+잘 보면 txs라는게 나오는데 0개에
+txs가 2로 뜨는데
+eth.getBlock(1) 하면 트랜잭션이 2개가 발생한게 나옴
+
+원래는 remix에서 deployed contracts에 어드레스가 to로 들어가야됨
+
+private에서 이렇게 배포를 한대
+실제 contract 배포할 때
+
+여기까지가 블록체인 인프라 작업영역에 해당. (관리하는 측면)
+
+개발하는사람한테 contract address를 받아서 이렇게 하면 끝난다는데
+
+노드를 셋팅하고 -> 컨트랙트를 배포
+
+다음에 해야하는게 smart contract 개발
+
+solidity를 많이 사용한다.
+
+visual code studio
+CMD
+geth
+metamask
+git
+remix
+desktop foldering
+
+dApp 개발 - 실제 어플리케이션을 만드는 부분 
+data base: 넣고 빼고 수정 삭제 CRUD create read update delete
+	mysql(mariadb):
+	oracle
+	redis
+	mongodb
+
+(si성 기업?)
+
+클라이언트(front-end): lifecycle (앱을 실행 -> 앱이 종료될 때까지의 상태값)
+과정의 프로세스를 이해하는 것이 중요
+	웹: html, css, javascript (react, vue, angular) framework (library)
+	안드로이드: java, kotlin
+	iOS: swift, object-c
+
+서버(backend): 요청시 전달한 데이터 분해, 응답 request, response
+	java - spring - 전자정부프레임워크
+	c# - .net core
+	python - django
+	javascript - node.js - 서버를 만들기 위한 엔진
+
+java: 많이 사용함. 기관, 정부과제 에서는 자바로된 스프링을 많이 이용
+
+가져다 사용하는 개념
+프레임워크: 이미 프로젝트 구조가 갖춰져 있음. 
+라이브러리: 코드 단위, 하나의 기능
+라이브러리 < 프레임워크
+
+블록체인 단점
+1. 속도
+2. 데이터를 조회할 때 대량 리스트 조회가 안됨 -> db와 같이 사용
+eth.account 할때는 utc 전체를 조회하는 것이기 때문에 파일이 커질수록 기하급수적
+느려짐
+
+프로그래밍 기본 개념
+	변수 선언(데이터 구조)
+	함수
+	조건문
+	반복문
+
+분야별 컨셉만 잡고 있으면, 별개 다른 프로그램 습득시 크게 어렵지 않음
+
+smart contract 는 서버와 db에 가깝고
+
+보통 프로젝트를 하면 wallet 만들어 보는게 많다 crypto wallet
+
+전송 데이터조회 또 뭐? 등 3가지 기능
+또 하나는 실제로 contract를 배포하는 거 - 리믹스
+
+그게 아니면 게임쪽? 크립토키티 나 어쩌구
+게임개발은 상위쪽에 속함 어렵고 오래걸림
+
+만들만한 것(clone)
+지갑
+리믹스
+게임
+
+지갑+remix 를 만들어보자
+
+포트폴리오는 기술적인 증명이래. 어떻게 구현했는지 얼마나 오래걸렸는지
+어떤 라이브러리를 썼는지, 문제점은 무엇이었는지
+
+완성도 << 기술적인 부분
+
+순수 웹이나 앱퀄리티 같은경우는 거래소 를 만들어라?
+
+거래소는 깃허브에 오픈소스가 있음
+git hub -> find -> crypto exchange
+거래소는 node.js, ejs -> 러시아 오픈소스
+
+query?
+
+www.npmjs.com/package/mysql
+
+spring은 표준화 되어있어 개발을 계속 하다보면 편함. 단 초기에 배우기 어려움(AOP)
+관점지향 프로그램
+node.js는 배우기 편하나, 하다보면 어려움. js를 사용하기 때문에, 배우긴 쉬우나
+비동기처리 라는것 때문에 배우기 어려움
+
+python - 인공지능 sklearn tensorflow keras
+PHP ? - 빗썸
+upbit - react
+
+트렌드는 php, java x?
+
+배치코드 쉘코드
+파일을 실행하면 파일에 입력된 명령어를 실행한다
+윈도우에서 sh(shell) 코드는 안열리는데 깃배쉬는 리눅스코드를 포함하기 때문에 된다
+
+./gethstart.sh
+
+markdown 이라고 sql 비슷한 애가 있대
+밑에 글이 따라오는거
+typora - markdown 전용 수정툴
+
+
+geth --datadir $PWD account new
+genesis.json
+geth --datadir $PWD init genesis.jason
+geth --networkid 1234 --datadir $PWD --rpc --rpcport 8545 --rpcaddr "0.0.0.0" --rpccorsdomain "*" --rpcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --port 30303 console
+
+geth attach http://127.0.0.1:8545
+

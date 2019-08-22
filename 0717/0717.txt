@@ -1,0 +1,90 @@
+https://rinkeby.etherscan.io/tx/0x5ebfc97d4f86a8c46a760fb0d748a0f225cfd83f25ab16f998ca38a3831dae8e
+
+
+PS C:\Users\강의실\Desktop\kcod 1> node 2_deployContract.js
+output :  { contracts: { 'Coursetro.sol': { Coursetro: [Object] } },
+  sources: { 'Coursetro.sol': { id: 0 } } }
+(node:1036) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+contract creation tx: 0x5ebfc97d4f86a8c46a760fb0d748a0f225cfd83f25ab16f998ca38a3831dae8e
+
+
+
+package.json
+
+dependencies: 설정파일에 적어 놓으면 가지고 다닐 필요 없이 설치가 가능
+npm install 명령어로. node module로 설치가 됨
+
+1_
+
+const Web3 = require Web3로 불러와서 하겠다
+
+rpc url web3가 링크뒤에 붙어서 서로가 커넥션이 만들어짐
+통신연결후에 할 작업이
+얼마의 잔고가 있는지 확인하는 작업
+
+
+2_
+fs
+solc
+tx 가 추가됨
+
+이 패키지는 한꺼번에 package.json에 dependency 항목에 적어주는것도 좋음
+fs: 패키지를 관리하는 모듈?
+solc= solidity code를 컴파일 하고 확인하는 모듈
+Tx= ethereumjs-tx : 이더리움에 트랜잭션을 확인하는 기능을 가진 모듈
+
+"fs": "0.0.1-security",
+
+addressmy= 
+비밀키를 상업화 할 때는 노출을 하면 안되고, 암호화 해놓은걸 불러들이는 방식으로
+
+contract address는 지금은 알 수 없고 나중에 solidity 계약서가 컴파일되고 배포된 후에
+제대로 저장되었다고 hash 결과값을 주면 알 수 있는것이고
+
+solidity 코딩할때 특이점은 coursetro.sol 
+솔리더티 계약서 문서를 따로 작성을 해 놓았는데,
+
+솔리더티 코딩을 remix에서 했었는데, 컴파일 자체를 서버 프로그램에서 한것.
+
+이런식으로 form에 맞춰서 작성을 하고 deploy 할때 파일을 불러오는것
+fs는 파일을 컨트롤하는 모듈 디렉토일 폴더에 있는 파일을 tostring 으로 불러오는것
+
+앞에 모듈 뒤에 값이 들어가는게 json 폼인데
+
+input form으로 해서 파일을 읽어들인 것을 source 부분에 저장한것
+
+저장한것을 또 solc.compile(JSON.strightfy 로 json폼으로 불러들여서
+구조화된 문장으로 작성하기 위해서 불러오는것
+-> solidity compile로 연결해줌
+
+컴파일 한것을 다시 json.폼으로 되어있느걸 parse(parsing)해서 output로 전달받음
+
+remix에서 data를 불러올때 abi로 했는데 이 구조화된 것이 json폼이었는데
+abi, binary 파일 형식의 두가지로 되어있는데
+deploy 할때는 abi형식으로 불러들이는 이유는 contract 의 특정 함수들을 호출할 때
+여러가지 함수가 있을텐데
+
+coursetro에서 크게 3가지 interface가 있는데
+abi로 해서 접근할수있게 루트를 만들어준것
+abi로 묶여있는 폼 중에 이런식으로 해서 web3를 통해서 이더리움에 접근해서 
+이렇게 할거야 하고 전달한것
+(mycontract = new web3...)
+
+누가 실제로 지불을 했는지 확인하려고
+
+gettranceaction ,,,
+
+txObject
+부터해서 가스비를 계싼
+
+to: addressmy(변경)는 누가 이 컨트랙트의 주인인지를 알려주는것
+
+var myContract - abi폼으로 contract를 한거고
+va myContractTx 
+
+const tx 거래데이터를 만든 것을
+tx.sign - 비밀키로 사인을 한것이고
+
+web3.eth.sensighted transaction 사인된 것을 서버에 보내준 것이고
+
+

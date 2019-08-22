@@ -1,0 +1,254 @@
+카톡으로 받은 contract folder
+
+-> mv cleos-cli-heper directory로.
+
+account unlock.
+keost start.
+
+and set contract account contract eosio.token.wasm eosio.token.abi
+
+그냥 system buyram 100 EOS 지름
+
+./cleos.sh get abi petereostest
+
+{
+  "version": "eosio::abi/1.1",
+  "types": [],
+  "structs": [{
+      "name": "account",
+      "base": "",
+      "fields": [{
+          "name": "balance",
+          "type": "asset"
+        }
+      ]
+    },{
+      "name": "close",
+      "base": "",
+      "fields": [{
+          "name": "owner",
+          "type": "name"
+        },{
+          "name": "symbol",
+          "type": "symbol"
+        }
+      ]
+    },{
+      "name": "create",
+      "base": "",
+      "fields": [{
+          "name": "issuer",
+          "type": "name"
+        },{
+          "name": "maximum_supply",
+          "type": "asset"
+        }
+      ]
+    },{
+      "name": "currency_stats",
+      "base": "",
+      "fields": [{
+          "name": "supply",
+          "type": "asset"
+        },{
+          "name": "max_supply",
+          "type": "asset"
+        },{
+          "name": "issuer",
+          "type": "name"
+        }
+      ]
+    },{
+      "name": "issue",
+      "base": "",
+      "fields": [{
+          "name": "to",
+          "type": "name"
+        },{
+          "name": "quantity",
+          "type": "asset"
+        },{
+          "name": "memo",
+          "type": "string"
+        }
+      ]
+    },{
+      "name": "open",
+      "base": "",
+      "fields": [{
+          "name": "owner",
+          "type": "name"
+        },{
+          "name": "symbol",
+          "type": "symbol"
+        },{
+          "name": "ram_payer",
+          "type": "name"
+        }
+      ]
+    },{
+      "name": "retire",
+      "base": "",
+      "fields": [{
+          "name": "quantity",
+          "type": "asset"
+        },{
+          "name": "memo",
+          "type": "string"
+        }
+      ]
+    },{
+      "name": "transfer",
+      "base": "",
+      "fields": [{
+          "name": "from",
+          "type": "name"
+        },{
+          "name": "to",
+          "type": "name"
+        },{
+          "name": "quantity",
+          "type": "asset"
+        },{
+          "name": "memo",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "actions": [{
+      "name": "close",
+      "type": "close",
+      "ricardian_contract": ""
+    },{
+      "name": "create",
+      "type": "create",
+      "ricardian_contract": ""
+    },{
+      "name": "issue",
+      "type": "issue",
+      "ricardian_contract": ""
+    },{
+      "name": "open",
+      "type": "open",
+      "ricardian_contract": ""
+    },{
+      "name": "retire",
+      "type": "retire",
+      "ricardian_contract": ""
+    },{
+      "name": "transfer",
+      "type": "transfer",
+      "ricardian_contract": ""
+    }
+  ],
+  "tables": [{
+      "name": "accounts",
+      "index_type": "i64",
+      "key_names": [],
+      "key_types": [],
+      "type": "account"
+    },{
+      "name": "stat",
+      "index_type": "i64",
+      "key_names": [],
+      "key_types": [],
+      "type": "currency_stats"
+    }
+  ],
+  "ricardian_clauses": [],
+  "error_messages": [],
+  "abi_extensions": [],
+  "variants": []
+}
+
+action항에 보면 정의된 기능들이 나온다.
+
+EOS랑 eth랑 다른게
+eth는 배포하는순간 token이 발행이 되지만,
+EOS는 token 생성을 위해서는 create tokoen을 따로 입력을 해야하고,
+symbol이나 얼마를 발행할 것인지 명시를 해야 생성이 된다.
+
+issue 라는 action을 보면
+token symbol 
+
+eth는 token contract를 발행을 하면 token name, token symbol, 발행량, 데시멀 까지 적어주면,
+contract를 배포하는 순간 eth token이 생성됨.
+etherscan에 조회하면 조회가 됨.
+
+EOS는 contract를 작성하고, set contract로 배포를 하면,
+위 4가지 항에 대한 정의를 하지 않음. 배포를 해도 token이 검색 되지 않음.
+
+symbol을 가지려면 create라는 명령어를 통해서,
+create의 symbol field를 보면, issuer 가 배포자가 되고, 
+eth는 symbol 따로, 발행량 따로 인데,
+EOS는 symbol과 발행량 decimal 까지 한번에 입력.
+ex) 3.0000 ABC = 3.0000의 ABC 라는 symbol name의 token이 생성
+issue 항은 token을 실제로 발행하는 내용.
+issue 의 parameter는 to와 qantity, 누구에게 얼만큼을 줄 것인지를 의미
+
+token을 create 하고 issue로 발행.
+당연히 create가 안되면 issue도 안됨.
+eth는 max를 정하지 않으면 계속 올라가는데 EOS는 max를 정해야함.
+
+./cleos.sh push action tockencreateaccount create '["issuer", "maxsupply"]' -p 실행자
+./cleos.sh push action petereostest create '["petereostest", "10000.0000 HEX"]' -p petereostest
+
+
+class3@DESKTOP-F5Q6G0E:~/eosio-cli-helper$ ./cleos.sh push action petereostest create '["petereostest", "10000.0000 HEX"]' -p
+ petereostest
+executed transaction: e6611cded3b6205ce4b42d45c7a6037c4a1451a6fc3f76b295ecde5516a61cc5  120 bytes  201 us
+#  petereostest <= petereostest::create         {"issuer":"petereostest","maximum_supply":"10000.0000 HEX"}
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+
+
+create를 했으니 issue를 해야겠지요?
+token 잔액을 볼 수 있는게,  01_connectRpc.js 에 
+get_curruncy_balance.
+
+./cleos push action issuer issue '["receiver", "quantity", "memo"]' -p 실행자
+./cleos.sh push action petereostest issue '["petereostest", "100.0000 HEX", "first issue"]' -p petereostest
+
+class3@DESKTOP-F5Q6G0E:~/eosio-cli-helper$ ./cleos.sh push action petereostest issue '["petereostest", "100.0000 HEX", "first
+ issue"]' -p petereostest
+executed transaction: 3171322a4b3a8ca8f009c3fcde2893afc790913e499d1255eba16c948fa93824  128 bytes  262 us
+#  petereostest <= petereostest::issue          {"to":"petereostest","quantity":"100.0000 HEX","memo":"first issue"}
+
+하고 node 01_connectRpc.js 하면 100 HEx가 조회됨.
+
+이제 transfer 할 차례
+
+변수항은 from, to, quantity, memo 4개항.
+
+./cleos push action transferer transfer '["from", "to", "quantity", "memo"]' -p executer
+./cleos.sh push action petereostest transfer '["petereostest", "eoseunjutest", "100.0000 HEX", "How are you doing?"]' -p petereostest
+
+
+
+./cleos.sh get table contract배포account 확인하고자하는accounts 로 잔액확인 가능
+./cleos.sh get table petereostest petereostest accounts
+
+./cleos.sh get table contract배포account symbol stat
+./cleos.sh get table petereostest HEX stat
+
+./cleos.sh push action petereostest create '["petereostest", "10000.0000 BCD"]' -p petereostest
+
+./cleos.sh push action petereostest issue '["petereostest", "100.0000 BCD"]' -p petereostest
+
+./cleos.sh get table petereostest petereostest accounts
+./cleos.sh get table petereostest BCD stat
+
+./cleos.sh push action petereostest retire '["10.0000 HEX", "retire token"]' -p petereostest
+
+./cleos.sh get table petereostest HEX stat
+{
+  "rows": [{
+      "supply": "90.0000 HEX",
+      "max_supply": "10000.0000 HEX",
+      "issuer": "petereostest"
+    }
+  ],
+  "more": false
+}
+

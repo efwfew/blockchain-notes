@@ -1,0 +1,39 @@
+"{
+    account_name: 'petereostest',
+    head_block_num: 42225107,
+    head_block_time: '2019-08-02T05:31:32.500',
+    privileged: false,
+    last_code_update: '2019-08-01T06:46:23.500',
+    created: '2019-07-30T01:34:15.500',
+    core_liquid_balance: '270.8648 EOS', // 토큰 잔액
+    ram_quota: 354225,
+    net_weight: 30000,                  //net
+    cpu_weight: 40000,                  //cpu
+    net_limit: { used: 8723, available: 396045, max: 404768 },
+    cpu_limit: { used: 4901, available: 185037, max: 189938 },
+    ram_usage: 213840,
+    permissions:
+     [ { perm_name: 'active', parent: 'owner', required_auth: [Object] },
+       { perm_name: 'owner', parent: '', required_auth: [Object] } ],
+    total_resources:
+     { owner: 'petereostest',
+       net_weight: '3.0000 EOS',
+       cpu_weight: '4.0000 EOS',
+       ram_bytes: 352825 },
+    self_delegated_bandwidth:
+     { from: 'petereostest',
+       to: 'petereostest',
+       net_weight: '3.0000 EOS',
+       cpu_weight: '4.0000 EOS' },
+    refund_request: null,
+    voter_info:
+     { owner: 'petereostest',
+       proxy: '',
+       producers: [],
+       staked: 70000,
+       last_vote_weight: '0.00000000000000000',
+       proxied_vote_weight: '0.00000000000000000',
+       is_proxy: 0,
+       flags1: 0,
+       reserved2: 0,
+       reserved3: '0 ' }}"

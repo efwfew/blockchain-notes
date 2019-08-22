@@ -1,0 +1,461 @@
+pragma solidity ^0.5.1;
+
+//naming(네이밍작업))
+
+contract example{
+    //data
+    string value_string1="10";
+    string value_string2;
+    string value_string3;
+    string value_string4;
+    
+    uint value_unit1=10;
+    bool value_bool1=true;
+    bool value_bool12=false;
+    
+    
+    string[] string_array1 = ["hello","world"];
+    
+    //very import!
+    mapping(address => uint)variable_name1;
+    mapping(string => uint)variable_name2;
+    
+    //struct 
+    mapping(uint => C) variable_name3;
+    mapping(uint => C) variable_name4;
+    
+    //호이스팅
+    struct C{
+        string sender;
+        string receiver;
+        string contents;
+        uint timestamp;
+    }
+    C c1=C({sender : "jeong",
+            receiver:"park",
+            contents:"test",
+            timestamp:1234});
+    C c2=C({sender : "kim",
+            receiver:"nam",
+            contents:"testttt",
+            timestamp:1234});
+            
+    //function -save
+    function f(string memory a,int b) public{
+        value_string1=a;
+    }
+    
+    //function -search - no use tx
+    function getF() view public returns(uint,string memory){
+        return(10,value_string1);
+    }
+}
+
+스마트 컨트랙트의 2가지 구조
+
+1. 변수를 이용 데이터 정리(데이터 모델링) - 
+
+계약서 예)
+
+갑(문자열)
+을(문자열-배열)
+날짜(1이상의 숫자)
+계약내용(문자열)
+
+2. 함수를 이용 데이터 조작 - 쿼리문 작성
+
+
+
+f(x) = 
+f(x), g(x), h(x) = 
+
+{} = scope 시작범위와 끝범위를 나타내는 것
+
+fuction -save = 저장하는애 state에 변화를 주는 애
+
+function - search - no use tx = state에 있는걸 가져오기만 하는애
+그래서 view를 붙여줘야 한대
+
+값을 주는데 어떤 값을 주냐 가 들어가야 되는데, 저장할땐 타입 명 (a) 가 들어가야하는데
+
+그냥 가져올때는 어떤것만 가져오곘다 하는 returns 가 들어간대
+
+1. 동적 프로그래밍: javascript, python
+-> 어느 부분이 문제인지 debug 하기어려움
+
+2. 정적 프로그래밍: solidity, c, c++, java 저장할 때마다 하나하나 타입을 정해줘야함
+-> 장점은 중간에 컴파일 할 때, 함수에 관한 그런거를 다 집어줌
+
+생활코딩
+www.opentutorials.org
+
+백준 알고리즘
+www.acmicpc.net
+
+f는 존나 눌러도 돈까이면서 트랜잭션처리가 되는데
+get f는 아무리 눌러도 아무것도 안돼
+
+get f는 view 키워드가 있어서 state 상태에서 가져오는것. 내부 컨트랙트에서
+
+똑같은 컨트랙트를 2개 배포함
+
+주소가 떠있는데 이게 컨트랙트 주소
+
+주소들
+ca1 0x692
+ca20xd45
+
+이더리움 어카운트에 저장된 state
+
+CA1
+CA2 에서 A가 state 안에 저장이 됨
+
+EOA - private key (생성의 개념보다는 소유권 이전) - tx 생성을 안함 = state 변동이 없다
+CA (contract address) - 생성이 맞다. tx 처리
+
+state에 0x692랑 0xd45공간이 생김
+
+0x692 {
+code:
+data:
+}
+0xd45 {
+code:
+data:
+value:
+nonce:
+}
+
+code를 binary로 전환한게 저장이 됨.
+컨트랙트를 
+물론 value stiringㅇ은 10이저장이 됨
+첫 deploy 된것과 두번쨰 된것이 조회하는 위치가 다름
+이것을 식별하는 것이 CA.
+
+어떤 데이터를 저장을 할지를 
+
+파일로 저장이 안된다?
+
+컨트랙트가 발생을 하면서 코드랑 데이터가 저장이 됨
+
+저장이 되는애가 변수고
+변수를 조작하기 위해 함수를 만드는 것
+
+data를 조회할때는 call이 뜨고
+f 나 deploy 할때는 vm 이 뜬다
+
+라인을 누르면 내역이 뜨는데,
+트랜잭션이 발생이 한애들은 내용 이나오고
+
+call은 state에서 그냥 조회
+deploy 하는거랑 f 하는건 동일 하다.
+
+얘를 injected web3로 변경하면 metamask가 뜸
+연결하고 승인을 하면
+to 가 없기 때문에 비워서 tx를 발생을 시킴 -> CA 생성
+어떻게 생성이 되냐면
+input data 큰거 로 확인을 하는데 이 code로 생성을 시키는거
+data 같은건 그냥 이 변수들을 집어넣으면서 CA를 tx에다가 to 에다가 집어넣음
+
+pending 상태가 되고
+etherscan으로 확인?
+
+vm이 라고 표시가 됐던건 어쩌구 저쩌구고
+injected web3로 해서 하면
+block 남바랑 2번쨰 3번째? 라고 뜸
+
+동일한 코드들을 배포를 해도 
+- 독립적인 컨트랙트가 되고
+
+컨트랙트를 배포하는 과정(생성)
+= 트랜잭션으로 처리가 됨
+
+CA를 생성하고, 코드와 데이터를 생성함.
+생성된 코드와 데이터는 CA에 저장됨.
+
+CA가 키가 됨.
+
+코드와 데이터가 생성이 됐다는 것은 state가 변경이 되었다는 것.
+
+컨트랙트 호출시 CA를 명시를 해야함. 조회를 하더라도.
+
+메타마스크에 로그인이 되어 있는 상태에서 from에서 누가 만들었냐
+를 메타마스크에서 불러오고
+to는 아까 만든 그거
+그리고 어디서 호출을 했냐 라는건 input data에서 확인이 된다
+
+CA를 호출하면 to에 CA가 들어감.
+어디서 호출을 헀다 하는게 input data
+from은 누가 호출했냐? - metamask
+
+from에서 value 만큼 차감을 하고
+
+처음 배포시에는 to가 비어있으나 생성된 CA로 채워지게 된다.
+
+block, block hash 도 채워진다.
+
+수수료를 차감하는 사람이 from
+
+누가 실행을 하냐면 이더리움에 EVM 이라는게 있는데 여기서 저 코드를 실행함
+
+byte code? 라고 하는데 이를 opcode로 해석을해서 실행을 하고
+
+gas used를 여기서 계산함. 
+
+가스리밋은 private 경우 800만~2000만 정도. 가스리밋이 적으면
+트래킹 몰리면 실행이 안됨
+
+fee=gas x gas limit
+
+가스를 사용하는 이유 = 무한루프를 막기 위해서
+
+가스비를 0을 베이스로 할 수 있는데 그러면 트래픽이 올라갔을 때
+우선순위를 정할 수 없음
+
+가스비가 높을수록 우선순위가 높음
+가스비를 많이 낸 순서로
+단가를 높게 책정한 애를 먼저
+
+보통 이더 전송은 가스리밋이 정해져 있음 21,000 으로.
+이때 가스 수수료를 결정 짓는 건 gas price
+
+이게 metamask에서 나오는 고급설정의 가스 가격.
+가스가 올라가면 올라갈수록 시간이 빨라짐.
+가스라고 하는건 이런 형태로 이루어진다~
+
+이 개념은 이더리움에만 있는 개념.
+결론은 gas는 중요하다.
+이로 인해도 문제도 많이 발생을 한다.
+
+out of gas 문제가 생겼을 때는 gas limit을 올리면 됨
+
+gas used by transaction
+
+config_toml 에서 gas_floor_target을 높게 잡아야함
+
+pragma solidity ^0.5.1;
+
+// naming(네이밍작업)
+
+contract Example {
+    // data
+    string value_string1 = "10";
+    
+    mapping (string => uint) map;
+    
+    // function - save
+    function f(string memory a) public {
+        value_string1 = a;
+    }
+        
+    // function - search - no use tx
+    function getF() view public returns(uint, string memory) {
+        return (10, value_string1);
+    }
+    
+    function setMap(string memory id, uint value) public {
+        map[id] = value;
+    }
+    
+    function getMap(string memory id) view publicv returns(uint) {
+        return (map[id]);
+    }
+    
+}
+
+-> setMap a. b. c 를 각각 저장하면
+getmap에서 입력만 하면 떠
+
+public은 일정한 값이 들어가야 한대
+을 쓰면 별도의 값을 지정하지 않아도 조회가 된다?
+
+키값을 첫번쨰 인자로 받도록 바뀐다?
+
+pragma solidity ^0.5.1;
+
+// naming(네이밍작업)
+
+contract Example {
+    // data
+    
+    struct Person {
+        string name;
+        uint age;
+        
+    }
+    mapping (address => Person) public map;
+    
+    function setMap(address id, string memory n, uint a) public {
+        map[id] = Person({name: n, age: a});    
+    }
+
+    
+}
+
+
+    function getMap(adress id) view public returns(unit) {
+        return (map[id].age + 10);
+
+이런식으로 연산이 필요할때는 get 을 써?
+
+그냥 public을 쓰면 조회를 할 수 있다.
+
+function updateMap(adress id, uint a) age {
+	map[id].age = a;
+
+: 특정 컬럼만 바꿔주는 함수가 됨
+
+생성자는 이 컨트랙트가 배포가 됐을 때, 자동으로 호출되는 함수
+호출돼서 state에 생성이 됐을때 한번 호출이 되고 그 다음부터는 호출이 안됨?
+
+instance 화 됐을 때 호출이 되는 함수 라고 정의 한다
+
+instance 화 란 특정 호드가 메모리에 올라 갔을 때,
+블록체인에서는 state에 저장됐을 때,
+
+생성자는 굳이 없어도 됨
+
+생성자의 경우 이 컨트랙ㅌ으의 정보를 초기에 세팅할때, 사용
+
+    string contractName;
+    string admin; 같이
+
+pragma solidity ^0.5.1;
+
+// naming(네이밍작업)
+
+contract Example {
+    // data
+    
+    address public admin;
+    
+    string contractName;
+    string admin;
+    
+    struct Contract {
+        string name;
+        uint age;
+        string status;
+    }
+    
+    modifier adminCheck() {
+        require(msg.sender == admin); //if false end, if ture go constructor
+        _;
+    }
+    
+    // creator 생성자
+    constructor (address id, string memory n, uint a) public {
+        map[id] = Contract({name: n, age: a, status: "wait"});
+    }
+ 
+    mapping (address => Contract) public map;
+    
+    // create
+    function setMap(address id, string memory n, uint a) public {
+        map[id] = Contract({name: n, age: a, status: "wait"});    
+    }
+    
+    // update
+    function updateMap(address id, string memory newStatus) public {
+        map[id].status = newStatus;
+    }
+
+}
+
+ㅡㅡ
+
+pragma solidity ^0.5.1;
+
+// naming(네이밍작업)
+
+contract Example {
+    // data
+    
+    address public admin;
+    
+    struct Contract {
+        string name;
+        uint age;
+        string status;
+    }
+    
+    modifier adminCheck() {
+        require(msg.sender == admin); //if false end, if ture go on
+        _;
+    }
+    
+    // creator 생성자
+    constructor (address id, string memory n, uint a) public {
+        map[id] = Contract({name: n, age: a, status: "wait"});
+    }
+ 
+    mapping (address => Contract) public map;
+    
+    // create
+    function setMap(address id, string memory n, uint a) public {
+        map[id] = Contract({name: n, age: a, status: "wait"});    
+    }
+    
+    // update
+    function updateMap(address id, string memory newStatus) public {
+        map[id].status = newStatus;
+    }
+
+}
+
+ㅡㅡ
+
+pragma solidity ^0.5.1;
+
+// naming(네이밍작업)
+
+contract Example {
+    // data
+    
+    address public admin;
+    
+    struct Contract {
+        string name;
+        uint age;
+        string status;
+    }
+    
+    modifier adminCheck() {
+        require(msg.sender == admin); //if false end, if ture go on
+        _;
+    }
+    
+    // creator 생성자
+    constructor () public {
+       admin = msg.sender;
+    }
+ 
+    mapping (address => Contract) public map;
+    
+    // create
+    function setMap(address id, string memory n, uint a) public {
+        map[id] = Contract({name: n, age: a, status: "wait"});    
+    }
+    
+    // update
+    function updateMap(address id, string memory newStatus) public {
+        map[id].status = newStatus;
+    }
+
+}
+
+ㅡㅡ
+
+require의 의미는 데이터를 rollback 시키는 것
+
+rollback이 일어나면 이 펑션이 false가 일어나면 값을 되돌림
+
+unit public a;
+
+modifier admincheck() {
+a = 10;
+
+으로 저장을 하고 맞으면 10이 나오는데,  false가 나면 모든 액션이 취소가 됨
+
+0이 뜬다는 말
+

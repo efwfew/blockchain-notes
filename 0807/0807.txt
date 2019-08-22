@@ -1,0 +1,26 @@
+in Javascript
+
+%O Pretty-print an Object on multiple lines.
+%o Pretty-print an Object all on a single line.
+%s String.
+%d Number (both integer and float).
+%j JSON. Replaced with the string '[Circular]' if the argument contains circular references.
+%% Single percent sign ('%'). This does not consume an argument.
+
+
+
+
+
+
+new Buffer(number)            // Old
+Buffer.alloc(number)          // New
+
+new Buffer(string)            // Old
+Buffer.from(string)           // New
+
+new Buffer(string, encoding)  // Old
+Buffer.from(string, encoding) // New
+
+new Buffer(...arguments)      // Old
+Buffer.from(...arguments)     // New
+
