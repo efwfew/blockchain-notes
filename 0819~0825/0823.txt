@@ -1,0 +1,65 @@
+ICON
+COSMOS
+PolkaDot
+
+
+interchain
+Monero
+Dash
+
+zero-knowledge proof
+영지식 증명
+
+payment ID
+
+ring signature
+
+crypto algorythm
+
+모네로캐쉬 쥐캐쉬?
+영지식증명
+모네로캐쉬 - 링 시그니쳐
+
+https://ko.wikipedia.org/wiki/%EA%B8%88%EB%B3%B8%EC%9C%84%EC%A0%9C
+금본위제
+
+
+http://wiki.hash.kr/index.php
+
+
+
+parity config generator
+https://wiki.parity.io/Configuring-Parity-Ethereum
+paritytech.github.io.parity-config-generator/#config= ~
+
+parity/musicoin
+
+
+parity --config=config.toml
+
+
+ethminer 
+
+2019-08-23 17:41:17     2/25 peers     51 KiB chain 912 bytes db  0 bytes queue    5 KiB sync  RPC:  0 conn,    0 req/s,   35 μs
+2019-08-23 17:41:43  Imported #119 0x6325…793c (0 txs, 0.00 Mgas, 0 ms, 0.50 KiB)
+2019-08-23 17:41:47     2/25 peers     51 KiB chain 912 bytes db  0 bytes queue    5 KiB sync  RPC:  0 conn,    0 req/s,   25 μs
+2019-08-23 17:41:57  Imported #120 0x29e6…866e (0 txs, 0.00 Mgas, 0 ms, 0.50 KiB)
+2019-08-23 17:42:14  Imported #121 0x6b23…01c8 (0 txs, 0.00 Mgas, 0 ms, 0.50 KiB)
+2019-08-23 17:42:17     2/25 peers     51 KiB chain 912 bytes db  0 bytes queue    5 KiB sync  RPC:  0 conn,    0 req/s,   25 μs
+2019-08-23 17:42:25  Imported #122 0xd2cd…0e8b (0 txs, 0.00 Mgas, 0 ms, 0.50 KiB)
+2019-08-23 17:42:29  Imported #123 0xa1b2…245c (0 txs, 0.00 Mgas, 0 ms, 0.51 KiB)
+2019-08-23 17:42:38  Imported #124 0xb7da…87d9 (0 txs, 0.00 Mgas, 0 ms, 0.51 KiB)
+2019-08-23 17:42:47     2/25 peers     51 KiB chain 912 bytes db  0 bytes queue    5 KiB sync  RPC:  0 conn,    0 req/s,   25 μs
+2019-08-23 17:42:49  Imported #125 0x3b0c…a796 (0 txs, 0.00 Mgas, 0 ms, 0.51 KiB)
+2019-08-23 17:42:50  Imported #126 0x7d29…2592 (0 txs, 0.00 Mgas, 1 ms, 0.50 KiB)
+2019-08-23 17:42:51  Imported #127 0x3493…8b47 (0 txs, 0.00 Mgas, 0 ms, 0.51 KiB)
+2019-08-23 17:43:15  Imported #128 0x9831…a007 (0 txs, 0.00 Mgas, 0 ms, 0.50 KiB)
+2019-08-23 17:43:17     2/25 peers     51 KiB chain 912 bytes db  0 bytes queue    5 KiB sync  RPC:  0 conn,    2 req/s,   27 μs
+2019-08-23 17:43:44  Imported #129 0x23be…76b5 (0 txs, 0.00 Mgas, 0 ms, 0.50 KiB)
+2019-08-23 17:43:47     2/25 peers     51 KiB chain 912 bytes db  0 bytes queue    5 KiB sync  RPC:  0 conn,    3 req/s,   35 μs
+2019-08-23 17:44:01  Fallback to `BlockId::Latest`
+2019-08-23 17:44:10  Imported #130 0xd3f6…dd44 (0 txs, 0.00 Mgas, 1 ms, 0.50 KiB)
+2019-08-23 17:44:17     2/25 peers    131 KiB chain 912 bytes db  0 bytes queue    5 KiB sync  RPC:  0 conn,    2 req/s,   35 μs
+2019-08-23 17:44:42  Transaction mined (hash 0x7fe0cf60268d69e3cd0de89772afc58c8be6f4e5a01ef8c8957781daa0f6084a)
+2019-08-23 17:44:42  Imported #131 0x5d31…9f31 (1 txs, 0.02 Mgas, 0 ms, 0.63 KiB)
+2019-08-23 17:44:47     2/25 peers    131 KiB chain    2 KiB db  0 bytes queue    5 KiB sync  RPC:  0 conn,    2 req/s,   35 μs
