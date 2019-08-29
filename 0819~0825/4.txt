@@ -1,0 +1,41 @@
+    struct Zombie {
+        string name;
+        uint dna;
+    }
+
+zombie 라는 객체 설정
+
+    Zombie[] public zombies;
+
+zombie 라는 배열 설정
+public 은 getter method 이므로 readable 하지만 writeable 하지 않다.
+= 누구나 이 배열을 불러와 contract를 생성할 수 있다.
+= 기본적으로 함수를 private으로 선언하고, 공개할 함수만 public으로 선언하는 것이 좋지.
+
+struct Person {
+  uint age;
+  string name;
+}
+
+Person[] public people;
+// 새로운 사람을 생성한다:
+Person satoshi = Person(172, "Satoshi");
+
+// 이 사람을 배열에 추가한다:
+people.push(satoshi);
+
+//한줄로 표현하면
+people.push(Person(16, "Vitalik"));
+
+
+private function 의 이름은 _이름
+
+view 함수로 선언한다네. 이는 함수가 데이터를 보기만 하고 변경하지 않는다는 뜻이지:
+pure 함수도 가지고 있는데, 이는 함수가 앱에서 어떤 데이터도 접근하지 않는 것을 의미하지
+
+이더리움은 SHA3의 한 버전인 keccak256를 내장 해시 함수로 가지고 있지
+해시 함수는 기본적으로 입력 스트링을 랜덤 256비트 16진수로 매핑하네. 
+스트링에 약간의 변화라도 있으면 해시 값은 크게 달라지네.
+의사 난수 발생기(pseudo-random number generator)로 이용하도록 하지
+
+
